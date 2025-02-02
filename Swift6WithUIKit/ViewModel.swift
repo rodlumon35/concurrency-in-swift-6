@@ -15,14 +15,12 @@ final class ViewModel {
         self.dependencies = dependencies
     }
     
-    @TestuseCaseActor
+    @MainActor
     func getPokemon(name: String) async {
         let useCase: TestUseCase = await dependencies.resolve()
         do {
             let fetchedPokemon = try await useCase.execute(name: name)
-            Task { @MainActor in
-                self.pokemon = fetchedPokemon
-            }
+            self.pokemon = fetchedPokemon
             await goToDetail()
         } catch {
             fatalError("pokemon not found")
