@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         return DefaultDependencies(navigationController: navigationController)
     }()
     
-    private lazy var viewModel: ViewModel = ViewModel(dependencies: dependencies)
+    private lazy var viewModel: PokemonViewModel = PokemonViewModel(dependencies: dependencies)
     private lazy var coordinator: AppCoordinator = dependencies.resolve()
 
     private lazy var button: UIButton = {
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     
     @objc private func buttonTapped() {
         Task {
-            await viewModel.getPokemon(name: "metapod")
+            await viewModel.getPokemon(name: "pikachu")
         }
     }
     

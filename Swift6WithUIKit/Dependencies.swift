@@ -9,14 +9,14 @@ import UIKit
 
 protocol Dependencies {
     var navigationController: UINavigationController? { get }
-    @TestuseCaseActor func resolve() -> TestUseCase
     func resolve() -> AppCoordinator
+    @PokemonActor func resolve() -> PokemonUseCase
 }
 
 final class DefaultDependencies: Dependencies {
     var navigationController: UINavigationController?
     
-    func resolve() -> TestUseCase {
+    func resolve() -> PokemonUseCase {
         DefaultTestUseCase()
     }
     
