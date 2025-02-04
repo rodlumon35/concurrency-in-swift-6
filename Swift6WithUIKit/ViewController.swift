@@ -62,7 +62,10 @@ class ViewController: UIViewController {
     @objc private func buttonTapped() {
         Task {
             await viewModel.getPokemon(name: "pikachu")
+            await viewModel.getPokemon(name: "pidgeot", shouldNavigate: true)
+            await viewModel.getPokemon(name: "geodude", shouldNavigate: true)
         }
+        //viewModel.getPokemonWithReactive(name: "pikachu")
     }
     
     @objc private func secondary() {

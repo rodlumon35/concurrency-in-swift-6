@@ -20,8 +20,7 @@ actor PokemonActor {
     static let shared = PokemonActor()
 }
 
-@PokemonActor
-protocol PokemonUseCase: Sendable {
+protocol PokemonUseCase {
     func getPokemon(name: String) async throws -> Pokemon
     func getReactivePokemon(name: String) -> AnyPublisher<Pokemon, Error>
 }

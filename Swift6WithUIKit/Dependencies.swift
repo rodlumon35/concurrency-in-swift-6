@@ -10,7 +10,7 @@ import UIKit
 protocol Dependencies {
     var navigationController: UINavigationController? { get }
     func resolve() -> AppCoordinator
-    @PokemonActor func resolve() -> PokemonUseCase
+    func resolve() -> PokemonUseCase
 }
 
 final class DefaultDependencies: Dependencies {

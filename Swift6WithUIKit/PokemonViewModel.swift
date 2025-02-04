@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 final class PokemonViewModel {
     private let dependencies: Dependencies
@@ -17,21 +18,29 @@ final class PokemonViewModel {
         self.dependencies = dependencies
     }
     
-    @PokemonActor
-    func getPokemon(name: String) async {
+    func getPokemon(name: String, shouldNavigate: Bool = false) async {
         let useCase: PokemonUseCase = dependencies.resolve()
         do {
             pokemon = try await useCase.getPokemon(name: name)
-            goToDetail()
+            for _ in 0..<100000 {
+                print(".")
+            }
+            if shouldNavigate {
+                goToDetail()
+            }
         } catch {
             fatalError("pokemon not found")
         }
     }
     
-    func getPokemonWithReactive(name: String) async {
-        let useCase: PokemonUseCase = await dependencies.resolve()
-        await useCase.getReactivePokemon(name: name)
+    @PokemonActor
+    func getPokemonWithReactive(name: String) {
+        let useCase: PokemonUseCase = dependencies.resolve()
+        useCase.getReactivePokemon(name: name)
             .sink { _ in } receiveValue: { pokemon in
+                for _ in 0..<100000 {
+                    print(".")
+                }
                 self.pokemon = pokemon
                 self.goToDetail()
             }.store(in: &subscriptions)
